@@ -3,7 +3,6 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
     color: #333;
 }
 
@@ -36,14 +35,21 @@ nav a:hover {
 }
 
 .hero {
+    
+    background-image:URL("flat-lay-bath-concept-accessories-with-copy-space.jpg");
+    background-attachment: fixed;
+    background-size: cover; /* optional, to ensure the image covers the entire background */
+    background-position: center;
     text-align: center;
     padding: 4em 1em;
-    background: #fad0c4;
+    
 }
 
 .hero h1 {
     font-size: 3rem;
     margin: 0.5em 0;
+    color:#000000
+    
 }
 
 .hero p {

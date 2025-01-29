@@ -1,32 +1,70 @@
-async function suggestHairstyle() {
-    const userPhoto = document.getElementById('userPhoto').files[0];
-    const botResponse = document.getElementById('botResponse');
+/*<script>
+const photoInput = document.getElementById('photoInput');
+const getSuggestionBtn = document.getElementById('getSuggestionBtn');
+const suggestionOutput = document.getElementById('suggestionOutput');
 
-    if (userPhoto) {
-        botResponse.innerHTML = '<p>Analyzing your photo...</p>';
-
-        const formData = new FormData();
-        formData.append('image', userPhoto);
-
-        try {
-            const response = await fetch('http://127.0.0.1:5000/process-image', {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                botResponse.innerHTML = `
-                    <img src="data:image/png;base64,${data.result_image}" alt="Suggested Hairstyle" style="max-width: 300px;">
-                `;
-            } else {
-                botResponse.innerHTML = '<p>Failed to analyze the image. Please try again later.</p>';
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            botResponse.innerHTML = '<p>Something went wrong. Please try again later.</p>';
-        }
-    } else {
-        botResponse.innerHTML = '<p>Please upload a photo.</p>';
+getSuggestionBtn.addEventListener('click', async () => {
+    const file = photoInput.files[0];
+    if (!file) {
+        suggestionOutput.innerHTML = '<p>Please upload a photo first.</p>';
+        return;
     }
-}
+
+    suggestionOutput.innerHTML = '<p>Processing your photo...</p>';
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+        const response = await fetch('https://your-backend-api-url.com/analyze', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            suggestionOutput.innerHTML = `
+                <h3>Suggested Hairstyle</h3>
+                <img src="data:image/png;base64,${data.result_image}" alt="Suggested Hairstyle" style="max-width: 300px;">
+                <p>${data.suggestion_text}</p>
+            `;
+        } else {
+            suggestionOutput.innerHTML = '<p>Could not process the image. Please try again later.</p>';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        suggestionOutput.innerHTML = '<p>Something went wrong. Please try again later.</p>';
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

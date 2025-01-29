@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unisex Hair Salon</title>
+    <title>Unisex Hair Salon AI</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,55 +22,16 @@
 
     <div class="hero" id="home">
         <h1>Style That Speaks!</h1>
-        <i>Expert hairstyling for everyone. Visit us to redefine your look!</p>
+        <p>Expert hairstyling for everyone. Visit us to redefine your look!</p>
     </div>
 
-    <section id="services" class="services">
-        <div class="service-card">
-            <img src="hairdresser-cutting-man-s-hair-barber-shop.jpg" alt="Hair Cut">
-            <h3>Hair Cutting</h3>
-            <p>Classic and modern styles for all genders.</p>
-        </div>
-
-        <div class="service-card">
-            <img src="close-up-hairdresser-work.jpg" alt="Hair Coloring">
-            <h3>Hair Coloring</h3>
-            <p>Vibrant colors and highlights to match your personality.</p>
-        </div>
-
-        <div class="service-card">
-            <img src="pexels-gianfranco-montoya-bravo-883351457-19762215.jpg" alt="Hair Treatment">
-            <h3>Hair Treatment</h3>
-            <p>Professional care for healthy, shiny hair.</p>
-        </div>
-
-        <div class="service-card">
-            <img src="nail-artist-gloves-applying-base-coat-little-finger.jpg" alt="Manicure/Pedicure">
-            <h3>Manicure/Pedicure</h3>
-            <p>"Enjoy a fabulous manicure today!"</p>
-        </div>
-
-        <div class="service-card">
-            <img src="sideways-customer-with-eyes-closed.jpg" alt="Bread Shaving/Trimming">
-            <h3>Bread Shaving/Trimming</h3>
-            <p>"Out with the old, in with the smooth—good luck with the shave!"</p>
-        </div>
-
-        <div class="service-card">
-            <img src="side-view-hairdresser-washing-woman-s-hair.jpg" alt="Bleach">
-            <h3>Bleach</h3>
-            <p>Professional care for healthy, shiny hair.</p>
-        </div>
+    <section id="ai-bot">
+        <h2>AI Hairstyle Suggestions</h2>
+        <p>Upload your photo and let our AI recommend the best hairstyles for you!</p>
+        <input type="file" id="photoInput" accept="image/*">
+        <button id="getSuggestionBtn">Get Suggestions</button>
+        <div id="suggestionOutput" style="margin-top: 1em;"></div>
     </section>
-
-    <section id="bot">
-        <h2>Chat with Our Hair Bot</h2>
-        <p>Upload your photo to get hairstyle suggestions!</p>
-        <input type="file" id="userPhoto" accept="image/*">
-        <button onclick="suggestHairstyle()">Get Suggestions</button>
-        <div id="botResponse" style="margin-top: 1em;"></div>
-    </section>
-
     <section id="stylists" class="services">
         <h2>Meet Our Stylists</h2>
         <p>Coming soon...</p>
@@ -86,11 +47,51 @@
         <p>Coming soon...</p>
     </section>
 
+
     <footer id="contact">
         <p>&copy; 2025 Unisex Hair Salon. All Rights Reserved.</p>
         <p>Location: 123 Style Avenue, Fashion City</p>
     </footer>
 
-    <script src="script.js"></script>
+
+    <script>
+        const photoInput = document.getElementById('photoInput');
+        const getSuggestionBtn = document.getElementById('getSuggestionBtn');
+        const suggestionOutput = document.getElementById('suggestionOutput');
+
+        getSuggestionBtn.addEventListener('click', async () => {
+            const file = photoInput.files[0];
+            if (!file) {
+                suggestionOutput.innerHTML = '<p>Please upload a photo first.</p>';
+                return;
+            }
+
+            suggestionOutput.innerHTML = '<p>Processing your photo...</p>';
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const response = await fetch('https://your-backend-api-url.com/analyze', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    suggestionOutput.innerHTML = `
+                        <h3>Suggested Hairstyle</h3>
+                        <img src="data:image/png;base64,${data.result_image}" alt="Suggested Hairstyle" style="max-width: 300px;">
+                        <p>${data.suggestion_text}</p>
+                    `;
+                } else {
+                    suggestionOutput.innerHTML = '<p>Could not process the image. Please try again later.</p>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                suggestionOutput.innerHTML = '<p>Something went wrong. Please try again later.</p>';
+            }
+        });
+    </script>
 </body>
 </html>
